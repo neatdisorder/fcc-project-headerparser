@@ -24,10 +24,13 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: "hello API" });
 });
 
+// Set trust proxy to true to bypass ip proxy
+app.set('trust proxy', true);
+
 // API WHO AM I
 app.get("/api/whoami", (req, res) => {
-  console.log(req.rawHeaders);
-  res.json({ ipaddress: req.ip, language: req.rawHeaders[7], software: req.rawHeaders[3] });
+  console.log(req.headers);
+  res.json({ ipaddress: req.ip, language: req.headers["accept-language"], software: req.headers["user-agent"] });
 });
 
 // listen for requests :)
